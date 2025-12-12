@@ -1,0 +1,15 @@
+{
+  "name": "imagemagician/php-phone-validator",
+  "description": "US phone number validation: checks against valid area codes and invalid exchanges",
+  "license": "GPL-3.0-or-later",
+  "autoload": {
+    "psr-4": {
+      "PhoneValidator\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.2"
+  }
+}
+
+
