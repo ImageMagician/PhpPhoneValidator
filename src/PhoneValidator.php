@@ -37,7 +37,7 @@ class PhoneValidator
         }
 
         // Check invalid exchanges
-        if ($this->invalidExchange($digits)) {
+        if ($this->validExchange($digits)) {
             return false;
         }
 
@@ -49,7 +49,7 @@ class PhoneValidator
         return isset($this->areaCodes[$areaCode]);
     }
 
-    public function invalidExchange(string $phone) : bool {
+    public function validExchange(string $phone) : bool {
         $exchange = $this->exchangeSubString($phone);
         return !in_array($exchange, $this->invalidExchanges);
     }
