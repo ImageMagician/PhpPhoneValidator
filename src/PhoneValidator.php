@@ -23,36 +23,40 @@ class PhoneValidator
     }
 
     public function validate(string $phone) : bool {
-        // Remove non-digits
-        $digits = preg_replace('/\D/', '', $phone);
+
+        $digits = $this->removeNonNumeric($phone);
 
         //must be 10 digits
         if (strlen($digits) !== 10) {
             return false;
         }
 
-        $areaCode = substr($digits, 0, 3);
-        $exchange = substr($digits, 3, 3);
-
         // Check area code
-        if (!$this->validAreaCode($areaCode)) {
+        if (!$this->validAreaCode($digits)) {
             return false;
         }
 
         // Check invalid exchanges
-        if ($this->invalidExchange($exchange)) {
+        if ($this->invalidExchange($digits)) {
             return false;
         }
 
         return true;
     }
 
-    public function validAreaCode(string $areaCode) : bool {
+    public function validAreaCode(string $phone) : bool {
+        $areaCode = substr($phone, 0, 3);
         return isset($this->areaCodes[$areaCode]);
     }
 
-    public function invalidExchange(string $exchange) : bool {
+    public function invalidExchange(string $phone) : bool {
+        $exchange = substr($phone, 3, 3);
         return !in_array($exchange, $this->invalidExchanges);
+    }
+
+    private function removeNonNumeric(string $phone) : bool {
+        // Remove non-digits
+        return preg_replace('/\D/', '', $phone);
     }
 
     public function getStateByAreaCode(string $areaCode) : ?string {
