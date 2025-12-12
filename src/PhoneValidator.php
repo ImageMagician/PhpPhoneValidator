@@ -45,18 +45,34 @@ class PhoneValidator
     }
 
     public function validAreaCode(string $phone) : bool {
-        $areaCode = substr($phone, 0, 3);
+        $areaCode = $this->areaCodeSubString($phone);
         return isset($this->areaCodes[$areaCode]);
     }
 
     public function invalidExchange(string $phone) : bool {
-        $exchange = substr($phone, 3, 3);
+        $exchange = $this->exchangeSubString($phone);
         return !in_array($exchange, $this->invalidExchanges);
     }
 
     private function removeNonNumeric(string $phone) : bool {
         // Remove non-digits
         return preg_replace('/\D/', '', $phone);
+    }
+
+    public function formatPhone(string $phone) : string {
+        $digits = $this->removeNonNumeric($phone);
+        $areaCode = $this->areaCodeSubString($digits);
+        $exchange = $this->exchangeSubString($digits);
+        $last = substr($digits, -4);
+        return '(' . $areaCode . ')' . $exchange . '-' . $last;
+    }
+
+    private function areaCodeSubString( string $phone) : string {
+        return substr($phone, 0, 3);
+    }
+
+    private function exchangeSubString( string $phone) : string {
+        return substr($phone, 3, 3);
     }
 
     public function getStateByAreaCode(string $areaCode) : ?string {
