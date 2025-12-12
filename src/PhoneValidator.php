@@ -35,16 +35,24 @@ class PhoneValidator
         $exchange = substr($digits, 3, 3);
 
         // Check area code
-        if (!isset($exchange, $this->areaCodes[$areaCode])) {
+        if (!$this->validAreaCode($areaCode)) {
             return false;
         }
 
         // Check invalid exchanges
-        if (in_array($exchange, $this->invalidExchanges)) {
+        if ($this->invalidExchange($exchange)) {
             return false;
         }
 
         return true;
+    }
+
+    public function validAreaCode(string $areaCode) : bool {
+        return isset($this->areaCodes[$areaCode]);
+    }
+
+    public function invalidExchange(string $exchange) : bool {
+        return !in_array($exchange, $this->invalidExchanges);
     }
 
     public function getStateByAreaCode(string $areaCode) : ?string {
