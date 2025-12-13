@@ -19,7 +19,8 @@ class PhoneValidator
 
     private function loadInvalidExchanges() : void {
         $json = file_get_contents(__DIR__ . "/../data/invalid_exchanges.json");
-        $this->invalidExchanges = json_decode($json, true);
+        $decoded = json_decode($json, true);
+        $this->invalidExchanges = $decoded->invalid_exchanges;
     }
 
     public function validate(string $phone) : bool {
@@ -46,7 +47,7 @@ class PhoneValidator
 
     public function validAreaCode(string $phone) : bool {
         $areaCode = $this->areaCodeSubString($phone);
-        return isset($this->areaCodes[$areaCode]);
+        return isset($this->areaCodes->$areaCode);
     }
 
     public function validExchange(string $phone) : bool {
