@@ -4,23 +4,15 @@ namespace PhoneValidator;
 
 class PhoneValidator
 {
-    private array $areaCodes = [];
-    private array $invalidExchanges = [];
-
-    public function __construct() {
-        $this->loadAreaCodes();
-        $this->loadInvalidExchanges();
-    }
-
-    private function loadAreaCodes() : void {
+    private function loadAreaCodes() : array {
         $json = file_get_contents(__DIR__ . "/../data/usa_area_codes.json");
-        $this->areaCodes = json_decode($json, true);
+        return json_decode($json, true);
     }
 
-    private function loadInvalidExchanges() : void {
+    private function loadInvalidExchanges() : array {
         $json = file_get_contents(__DIR__ . "/../data/invalid_exchanges.json");
         $decoded = json_decode($json, true);
-        $this->invalidExchanges = $decoded['invalid_exchanges'];
+        return $decoded['invalid_exchanges'];
     }
 
     public function validate(string $phone) : bool {
@@ -46,13 +38,15 @@ class PhoneValidator
     }
 
     public function validAreaCode(string $phone) : bool {
+        $areaCodes = $this->loadAreaCodes();
         $areaCode = $this->areaCodeSubString($phone);
-        return array_key_exists($areaCode, $this->areaCodes);
+        return array_key_exists($areaCode, $areaCodes);
     }
 
     public function validExchange(string $phone) : bool {
+        $loadExchanges = $this->loadInvalidExchanges();
         $exchange = $this->exchangeSubString($phone);
-        return in_array($exchange, $this->invalidExchanges);
+        return in_array($exchange, $loadExchanges);
     }
 
     private function removeNonNumeric(string $phone) : bool {
@@ -69,10 +63,12 @@ class PhoneValidator
     }
 
     private function areaCodeSubString( string $phone) : string {
+        $phone = $this->removeNonNumeric($phone);
         return substr($phone, 0, 3);
     }
 
     private function exchangeSubString( string $phone) : string {
+        $phone = $this->removeNonNumeric($phone);
         return substr($phone, 3, 3);
     }
 
