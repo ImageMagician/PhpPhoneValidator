@@ -20,7 +20,7 @@ class PhoneValidator
     private function loadInvalidExchanges() : void {
         $json = file_get_contents(__DIR__ . "/../data/invalid_exchanges.json");
         $decoded = json_decode($json, true);
-        $this->invalidExchanges = $decoded->invalid_exchanges;
+        $this->invalidExchanges = $decoded['invalid_exchanges'];
     }
 
     public function validate(string $phone) : bool {
