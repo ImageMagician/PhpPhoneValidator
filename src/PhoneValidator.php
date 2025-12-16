@@ -49,7 +49,7 @@ class PhoneValidator
         return in_array($exchange, $loadExchanges);
     }
 
-    private function removeNonNumeric(string $phone) : bool {
+    private function removeNonNumeric(string $phone) : string {
         // Remove non-digits
         return preg_replace('/\D/', '', $phone);
     }
@@ -59,12 +59,12 @@ class PhoneValidator
         $areaCode = $this->areaCodeSubString($digits);
         $exchange = $this->exchangeSubString($digits);
         $last = substr($digits, -4);
-        return '(' . $areaCode . ')' . $exchange . '-' . $last;
+        return '(' . $areaCode . ') ' . $exchange . '-' . $last;
     }
 
     private function areaCodeSubString( string $phone) : string {
-        $phone = $this->removeNonNumeric($phone);
-        return substr($phone, 0, 3);
+        $digits = $this->removeNonNumeric($phone);
+        return substr($digits, 0, 3);
     }
 
     private function exchangeSubString( string $phone) : string {
