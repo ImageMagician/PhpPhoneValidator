@@ -47,12 +47,12 @@ class PhoneValidator
 
     public function validAreaCode(string $phone) : bool {
         $areaCode = $this->areaCodeSubString($phone);
-        return isset($this->areaCodes->$areaCode);
+        return array_key_exists($areaCode, $this->areaCodes);
     }
 
     public function validExchange(string $phone) : bool {
         $exchange = $this->exchangeSubString($phone);
-        return !in_array($exchange, $this->invalidExchanges);
+        return in_array($exchange, $this->invalidExchanges);
     }
 
     private function removeNonNumeric(string $phone) : bool {
