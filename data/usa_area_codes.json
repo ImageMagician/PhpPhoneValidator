@@ -256,6 +256,7 @@
   "830": {"state": "TX", "utc":-6},
   "831": {"state": "CA", "utc":-8},
   "832": {"state": "TX", "utc":-6},
+  "833": {"state": "NA", "utc": 0},
   "835": {"state": "PA", "utc":-5},
   "843": {"state": "SC", "utc":-5},
   "845": {"state": "NY", "utc":-5},
