@@ -256,7 +256,6 @@
   "830": {"state": "TX", "utc":-6},
   "831": {"state": "CA", "utc":-8},
   "832": {"state": "TX", "utc":-6},
-  "833": {"state": "NA", "utc": 0},
   "835": {"state": "PA", "utc":-5},
   "843": {"state": "SC", "utc":-5},
   "845": {"state": "NY", "utc":-5},
@@ -321,5 +320,12 @@
   "980": {"state": "NC", "utc":-5},
   "984": {"state": "NC", "utc":-5},
   "985": {"state": "LA", "utc":-6},
-  "989": {"state": "MI", "utc":-5}
+  "989": {"state": "MI", "utc":-5},
+  "800": {"state": "NA", "utc": 0},
+  "833": {"state": "NA", "utc": 0},
+  "844": {"state": "NA", "utc": 0},
+  "855": {"state": "NA", "utc": 0},
+  "866": {"state": "NA", "utc": 0},
+  "877": {"state": "NA", "utc": 0},
+  "888": {"state": "NA", "utc": 0}
 }
